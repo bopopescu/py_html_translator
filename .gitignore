@@ -1,0 +1,11 @@
+/.idea
+/venv
+/build
+/dump.php
+/html.ui
+/html_recognize.py
+/py_html_translator.spec
+/settings.ini
+/Settings.py
+/Translate.py
+/GUI.py
