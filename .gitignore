@@ -1,11 +1,10 @@
 /.idea
 /__pycache__
-/venv
-/build
 /dump.php
 /html.ui
 /html_recognize.py
 /py_html_translator.spec
+/index.spec
 /settings.ini
 /Settings.py
 /Translate.py
