@@ -1,7 +1,8 @@
 import configparser
 from PyQt5 import QtWidgets, uic, QtCore
 import sys
-import html_design
+# import html_design
+import restore_update
 import os
 from subprocess         import check_output
 from bs4 import BeautifulSoup
@@ -14,12 +15,12 @@ import codecs
 import subprocess
 import re
 
-class HtmlTranslator(QtWidgets.QMainWindow, html_design.Ui_MainWindow):
+class HtmlTranslator(QtWidgets.QMainWindow, restore_update.Ui_MainWindow):
     def __init__(self):
         # Это здесь нужно для доступа к переменным, методам
         # и т.д. в файле html.py
         super().__init__()
-        self.setupUi(self)  # Это нужно для инициализации нашего дизайна
+        self.setupUi(self)  # Это нужно для инициализации нашего дизайнаq
 
         #Инициализация входной и выходной строки
         self.input = ''
@@ -137,38 +138,13 @@ class HtmlTranslator(QtWidgets.QMainWindow, html_design.Ui_MainWindow):
                 settings.write(config_file)
             self.load_settings()
 
-    def write_to_file(self, json_string, path="D:\OSPanel\domains\shop.loc\dump.php"):
-        f = codecs.open(path, "w+", "utf-8")
-        f.write('<?php \n $l=[')
-        tr_strings = []
-        for l_id, value in json_string.items():
-            single_tr = str(l_id) + "=>["
-            # Массив переводов одного слова(предложения)
-            tr_langs = []
-            for lang, v in value.items():
-                tr_langs.append("'" + lang + "'=>'" + v + "'")
-            # Массив переводов строк
-            single_tr += ','.join(tr_langs) + "],";
-            f.write(single_tr)
-        f.write('];')
-        f.close()
-        return True;
-
     ################------------------------####################
     ############****Запускаем работу скрипта****################
     ################------------------------####################
     def click_btn_run(self):
-        # mb = QtWidgets.QMessageBox()
-        # mb.setIcon(QtWidgets.QMessageBox.Information)
-        # mb.setWindowTitle('Job done!')
-        # mb.setText('Copy and past content from input to template.')
-        # mb.setStandardButtons(QtWidgets.QMessageBox.Ok)
-        # mb.show()
         # Получаем все переводы из файла
         translate_file_content = check_output(['php', '-r', 'include "' + self.setting_file_translates + '"; echo json_encode($l);'])
         translate_file_content = json.loads(translate_file_content)
-        # print(translate_file_content)
-        # sys.exit(0)
 
         #Введенный фрагмент
         self.input = self.output = self.main_input.toPlainText()
@@ -199,7 +175,19 @@ class HtmlTranslator(QtWidgets.QMainWindow, html_design.Ui_MainWindow):
 
         # языки
         langs       = self.setting_langs.split('|')
+
+        # Прогресс бар
+        i = 1
+        self.progressBar.setMaximum(len(chunks))
+        # Прогресс бар
+
         for item in chunks:
+
+            #Прогресс бар
+            i += 1
+            self.progressBar.setValue(i)
+            # Прогресс бар
+
             translate_file_string = []
             translate_dic = {}
             translate_dic[self.setting_main_lang] = item
@@ -240,7 +228,40 @@ class HtmlTranslator(QtWidgets.QMainWindow, html_design.Ui_MainWindow):
         self.write_to_file(translate_file_content, self.setting_file_translates)
         #subprocess.call(['chmod', '0777', '"' + self.setting_file_translates + '"'])
         self.main_input.setPlainText(self.output)
+        #Информационное сообщение о завершении работы
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setWindowTitle("Перевод завершен!")
+        msg.setText("Перевод фрагмента html выполнен. Теперь вы можете его скопировать и добавить в свой шаблон!")
+        msg.exec_()
+        #
+        # msg = QtWidgets.QMessageBox()
+        # msg.setIcon(QtWidgets.QMessageBox.Information)
+        #
+        # msg.setText("Would you like to delete theme <b>test</b> ?")
+        # msg.setWindowTitle("Delete Theme Confirmation")
+        #
+        # retval = msg.exec_()
 
+    ################------------------------####################
+    ############**********Запись в файл*********################
+    ################------------------------####################
+    def write_to_file(self, json_string, path="D:\OSPanel\domains\shop.loc\dump.php"):
+        f = codecs.open(path, "w+", "utf-8")
+        f.write('<?php \n $l=[')
+        tr_strings = []
+        for l_id, value in json_string.items():
+            single_tr = str(l_id) + "=>["
+            # Массив переводов одного слова(предложения)
+            tr_langs = []
+            for lang, v in value.items():
+                tr_langs.append("'" + lang + "'=>'" + v + "'")
+            # Массив переводов строк
+            single_tr += ','.join(tr_langs) + "],";
+            f.write(single_tr)
+        f.write('];')
+        f.close()
+        return True;
 
 #Основная функция приложения
 def main():
