@@ -12,6 +12,9 @@ def lang_field_connector(lang_str):
         else:
             return lang_str
 
+#***********************************************************#
+#------------ Проврка на существование перевода в БД --------------#
+#***********************************************************#
 def check_translates(db, user, password, lang_default = 'ru', values = []):
     if len(values) > 0 :
         try:

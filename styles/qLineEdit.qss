@@ -1,0 +1,27 @@
+QLineEdit#inputField {
+    border-radius: 5px;
+    background-color: #FCE94F;
+    color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 35px;
+}
+
+QLabel#textLabel {
+    min-width: 50px;
+}
+
+QPushButton#saveButton, QPushButton#cancelButton {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    height: 35px;
+}
+
+QLabel#headerRowKey{
+    border-radius: 5px;
+    background-color: #FCE94F;
+    color: black;
+    padding-left: 15px;
+    min-height: 35px;
+}
