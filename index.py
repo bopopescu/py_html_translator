@@ -21,6 +21,7 @@ import subprocess
 import re
 import numpy as np
 import io
+from gui import GUI
 
 #Laravel
 from os import listdir
@@ -88,73 +89,18 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         # if (os.path.isfile('vocabulary.json') == False) :
         #     with open('vocabulary.json', 'w') as f:
         #         json.dump(initData, f)
+
         # Шапка таблицы
-        tableHeaderRow = QHBoxLayout()
-        tableHeaderGrid = QGridLayout()
-        keyLabel = QLabel('ключ', objectName='headerRowKey')
-        keyLabel.setStyleSheet(open("styles/qLineEdit.qss", "r").read())
-        keyLabel.setFixedWidth(230)
-        tableHeaderGrid.addWidget(keyLabel, 0, 0)
-        j = 1;
-        for lang in self.langs:
-            j += 1;
-            keyLangLabel  = QLabel(lang, objectName='headerRowKey')
-            keyLangLabel.setStyleSheet(open("styles/qLineEdit.qss", "r").read())
-            keyLangLabel.setFixedWidth(230)
-            tableHeaderGrid.addWidget(keyLangLabel, 0, j)
-        tableHeaderRow.addLayout(tableHeaderGrid)
-        tableHeaderRow.addStretch(1)
-        self.vocabularyLayout.addLayout(tableHeaderRow)
+        GUI.setTableHeader(self.langs, self.vocabularyLayout)
         # Рендер переводов
         for key in initData:
-            self.horizontal = QHBoxLayout()
-            horizontal = self.horizontal
-            horizontalRowGrid = QGridLayout()
-            #Ключ перевода
-            rowKey = QLabel(key)
-            horizontalRowGrid.addWidget(rowKey, 0, 0)
-            i = 1
-            for lang in self.langs:
-                wordItem = QLabel()
-                wordItem.setText(initData[key][lang])
-                horizontalRowGrid.addWidget(wordItem, 0, i)
-                i += 1
-            # Иконки для кнопок, размер кнопок
-            editButton = QPushButton()
-            deleteButton = QPushButton()
-            editButton.setIcon(QIcon('edit-icon-image-9.png'))
-            deleteButton.setIcon(QIcon('delete-icon-16x16-29 .png'))
-            editButton.setIconSize(QSize(16, 20))
-            deleteButton.setIconSize(QSize(16, 20))
-            deleteButton.setFixedHeight(24)
-            deleteButton.setFixedWidth(24)
-            editButton.setFixedHeight(24)
-            editButton.setFixedWidth(24)
-
-            # Итератор шаблонов (горизонтальных в вертикальном)
-            iterate = self.vocabularyLayout.count()
-
-            # ID-ки и ключи кнопок (для удаления и редактирования)
-            # ID-ки кнопок должны совпадать и итератором шаблонов (горизонтальных в вертикальном - номер строки перевода(индекс))
-            editButton.setProperty('key', key)
-            editButton.setProperty('id', iterate)
-            editButton.setProperty('type', self.editType)
-            deleteButton.setProperty('key', key)
-            deleteButton.setProperty('id', iterate)
-            deleteButton.setProperty('type', self.deleteType)
-            # Обработчик нажатия  кнопок (редактировать и удалить)
-            editButton.clicked.connect(self.editClick)
-            deleteButton.clicked.connect(self.deleteClick)
-            # Добавляем в каждый горизонтальный шаблон (строку) кнопки удаления и редактирования
-            #horizontal.addStretch(1)
-            horizontalRowGrid.addWidget(editButton, 0, i)
-            i += 1
-            horizontalRowGrid.addWidget(deleteButton, 0, i)
-            i += 1
-            #horizontal.addWidget(editButton)
-            #horizontal.addWidget(deleteButton)
-            # Добавляем горизонтальный шаблон (с переводами и кнопками) во "внешний вертикальный" (проще говоря добавляем строку в ячейку)
-            horizontal.addLayout(horizontalRowGrid)
+            horizontal = GUI.setRow(self, self.langs, initData[key], key, self.vocabularyLayout)
+            for itemInRow in range(horizontal.itemAt(0).count()) :
+                widgetType = horizontal.itemAt(0).itemAt(itemInRow).widget().property('type')
+                if(widgetType == 'edit'):
+                    horizontal.itemAt(0).itemAt(itemInRow).widget().clicked.connect(self.editClick)
+                if (widgetType == 'delete'):
+                    horizontal.itemAt(0).itemAt(itemInRow).widget().clicked.connect(self.deleteClick)
             self.vocabularyLayout.addLayout(horizontal)
         # Устанавливаем основной (вертикальный шаблон) в окне приложения
         self.vocabularyLayout.addStretch(1)
@@ -171,7 +117,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             # Получаем индекс горизонтального шаблона по аттрибуту кнопки (ID)
             horizontalRowLayoutId = self.sender().property('id')
             keyAttr = self.sender().property('key')
-            print(keyAttr)
             horizontalRowLayout = self.vocabularyLayout.itemAt(horizontalRowLayoutId)
 
             # Шаблон сетки в горизонтальном шаблоне (QGridLayoiut в шаблоне QHLayout)
@@ -181,7 +126,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             # Удаляем все виджеты в шаблоне (layuot-e)
             for i in reversed(range(widgetCount)):
                 innerRowGridLayout.itemAt(i).widget().setParent(None)
-
             # Удаляем шаблон сетки (QGridLayout) из горизонтального шаблона
             horizontalRowLayout.removeItem(horizontalRowLayout.itemAt(0))
             self.vocabularyLayout.removeItem(self.vocabularyLayout.itemAt(horizontalRowLayoutId))
