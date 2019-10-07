@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
+    <width>1043</width>
     <height>876</height>
    </rect>
   </property>
@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="modx">
          <attribute name="title">
@@ -1134,11 +1134,11 @@ padding-right: 5px;</string>
            <rect>
             <x>5</x>
             <y>60</y>
-            <width>1011</width>
-            <height>711</height>
+            <width>1006</width>
+            <height>41</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="vocabularyLayout"/>
+          <layout class="QVBoxLayout" name="tableHeaderLayout"/>
          </widget>
          <widget class="QPushButton" name="addTranslate">
           <property name="geometry">
@@ -1158,6 +1158,40 @@ color: white;</string>
            <string>Добавить</string>
           </property>
          </widget>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>110</y>
+            <width>1006</width>
+            <height>631</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1004</width>
+             <height>629</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>750</y>
+            <width>1006</width>
+            <height>26</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="vocabularyLayout"/>
+         </widget>
         </widget>
        </widget>
       </item>
@@ -1170,7 +1204,7 @@ color: white;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
+     <width>1043</width>
      <height>22</height>
     </rect>
    </property>

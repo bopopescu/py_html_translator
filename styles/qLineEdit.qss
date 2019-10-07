@@ -25,3 +25,8 @@ QLabel#headerRowKey{
     padding-left: 15px;
     min-height: 35px;
 }
+
+QLabel#dangerLabel{
+    color: red;
+    text-align: center;
+}

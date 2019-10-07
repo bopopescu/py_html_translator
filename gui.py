@@ -39,7 +39,10 @@ class GUI () :
         i = 1
         for lang in langs:
             wordItem = QLabel()
-            wordItem.setText(data[lang])
+            text = data[lang]
+            if (len(data[lang]) > self.translateLen):
+                text = data[lang][:self.translateLen] + '...'
+            wordItem.setText(text)
             horizontalRowGrid.addWidget(wordItem, 0, i)
             i += 1
         # Иконки для кнопок, размер кнопок
@@ -72,3 +75,13 @@ class GUI () :
         # Добавляем горизонтальный шаблон (с переводами и кнопками) во "внешний вертикальный" (проще говоря добавляем строку в ячейку)
         horizontal.addLayout(horizontalRowGrid)
         return horizontal
+
+    def clearLayout(layout):
+        if layout is not None:
+            for itemIndex in range(layout.count()):
+                if (layout.itemAt(itemIndex).__class__.__name__ == "QHBoxLayout"):
+                    qGridItems = layout.itemAt(itemIndex).itemAt(0)
+                    print(qGridItems.count())
+                    for qGridItemIndex in range(qGridItems.count()) :
+                        print(qGridItems.itemAt(qGridItemIndex).widget())
+                        # print(qGridItems.itemAt(2).widget().setParent(None))

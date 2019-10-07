@@ -22,6 +22,7 @@ import re
 import numpy as np
 import io
 from gui import GUI
+from Laravel import Laravel
 
 #Laravel
 from os import listdir
@@ -29,72 +30,49 @@ from os.path import isdir, join, isfile
 
 class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
 
-    def tinitVocabulary(self):
-        initData = {}
-        initData = {
-            'hello': {'en': 'Hello', 'ru': 'Привет', 'ua': 'Доброго дня'},
-            'phone': {'en': 'Phone', 'ru': 'Телефон', 'ua': 'Телефон'},
-            'product': {'en': 'Product', 'ru': 'Товар', 'ua': 'Продукт'},
-        }
+    def initTableHeader(self):
+        # Шапка таблицы
+        GUI.setTableHeader(self.langs, self.tableHeaderLayout)
 
-        langs = ['ru', 'en', 'ua']
+    ################------------------------####################
+    #############**Создаем индексы переводов**##################
+    ################------------------------####################
+    def indexVocabulary(self):
+        initData = self.initDataVocabulary
+        # Инициализация списков для дальнейшего наполнения
+        data = {}
+        for lang in self.langs:
+            data[lang] = {}
+        # Формируем необходимую структуру данных для записи в индексные файлы
+        for key in initData :
+            for lang in self.langs:
+                data[lang].update({initData[key][lang]: key})
+        # Пишем в файл json данные формата "значение : ключ" (с учетом локализации)
+        for lng in data:
+            self.writeJson(self.vocabularyFileName + '_' + lng, data[lng])
 
-        i = 1
+    ################------------------------####################
+    #############*****Заппись json в файл*****##################
+    ################------------------------####################
+    def writeJson(self, fileName, data):
+        with open(fileName + '.json', 'w', encoding='utf8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
-        for key in initData:
-            j = 0
-            #self.vocabylaryGridLayout.setColumnStretch(i, 1)
-            for lang in langs:
-                wordItem = QLabel()
-                wordItem.setText(initData[key][lang])
-                self.vocabylaryGridLayout.setColumnStretch(j, 1)
-                self.vocabylaryGridLayout.addWidget(wordItem, i, j)
-                j = j + 1
-            # Иконки для кнопок, размер кнопок
-            editButton = QPushButton()
-            deleteButton = QPushButton()
-            editButton.setIcon(QIcon('edit-icon-image-9.png'))
-            deleteButton.setIcon(QIcon('delete-icon-16x16-29 .png'))
-            editButton.setIconSize(QSize(16, 20))
-            deleteButton.setIconSize(QSize(16, 20))
-
-            # Итератор шаблонов (горизонтальных в вертикальном)
-            iterate = self.vocabylaryGridLayout.count()
-
-            # ID-ки и ключи кнопок (для удаления и редактирования)
-            # ID-ки кнопок должны совпадать и итератором шаблонов (горизонтальных в вертикальном - номер строки перевода(индекс))
-            editButton.setProperty('key', key)
-            deleteButton.setProperty('key', key)
-            deleteButton.setProperty('id', iterate)
-            editButton.setProperty('id', iterate)
-            # Обработчик нажатия  кнопок (редактировать и удалить)
-            editButton.clicked.connect(self.editClick)
-            deleteButton.clicked.connect(self.deleteClick)
-            # Добавляем в каждый горизонтальный шаблон (строку) кнопки удаления и редактирования
-            #horizontal.addStretch(1)
-            self.vocabylaryGridLayout.addWidget(editButton, i, j)
-            j = j + 1
-            self.vocabylaryGridLayout.addWidget(deleteButton, i, j)
-            j = j + 1
-            # Добавляем горизонтальный шаблон (с переводами и кнопками) во "внешний вертикальный" (проще говоря добавляем строку в ячейку)
-            #self.vocabularyLayout.addLayout(horizontal)
-            i = i + 1
-        # Устанавливаем основной (вертикальный шаблон) в окне приложения
-        #self.vocabylaryLayout.addStretch(1)
-        #self.vocabylaryGridLayout.addLayout(horizontal)
-
+    ################------------------------####################
+    #############****Инициализация словаря****##################
+    ################------------------------####################
     def initVocabulary(self):
         layout = QGridLayout()
-        initData = self.initData
-        # if (os.path.isfile('vocabulary.json') == False) :
-        #     with open('vocabulary.json', 'w') as f:
-        #         json.dump(initData, f)
+        initData = self.initDataVocabulary
+        widget = QWidget()
+        # Виджет в скролл области
+        self.scrollArea.setWidget(widget)
+        self.vocabularyLayout = QVBoxLayout(widget)
 
-        # Шапка таблицы
-        GUI.setTableHeader(self.langs, self.vocabularyLayout)
         # Рендер переводов
         for key in initData:
             horizontal = GUI.setRow(self, self.langs, initData[key], key, self.vocabularyLayout)
+            # Установка обработчиков нажатия кнопок
             for itemInRow in range(horizontal.itemAt(0).count()) :
                 widgetType = horizontal.itemAt(0).itemAt(itemInRow).widget().property('type')
                 if(widgetType == 'edit'):
@@ -105,11 +83,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         # Устанавливаем основной (вертикальный шаблон) в окне приложения
         self.vocabularyLayout.addStretch(1)
 
-    def editClick(self) :
-        self.dialog = QDialog(self)
-        self.dialog.ui = uic.loadUi('editTranslateDialog.ui', self.dialog)
-        translateKey = self.sender().property('key')
-        self.renderDialog(self.initData[translateKey], key = translateKey)
     def deleteClick(self) :
         # Подтверждение удаления записи
         confirmDelete = QtWidgets.QMessageBox.critical(None, 'Подтверждение удаления', 'Вы действительно желаете удалить данную запись?', QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
@@ -140,16 +113,23 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
                         if(rowItemWidgetType == self.editType or rowItemWidgetType == self.deleteType) :
                             self.vocabularyLayout.itemAt(horizontalRow).itemAt(0).itemAt(itemInRow).widget().setProperty('id', i)
                 i += 1
-            del self.initData[keyAttr]
+            del self.initDataVocabulary[keyAttr]
             with open(self.vocabularyFileName + '.json', 'w') as f:
-                json.dump(self.initData, f)
+                json.dump(self.initDataVocabulary, f)
+            self.indexVocabulary()
+
+    def editClick(self):
+        self.dialog = QDialog(self)
+        self.dialog.ui = uic.loadUi('editTranslateDialog.ui', self.dialog)
+        translateKey = self.sender().property('key')
+        self.renderDialog(self.initDataVocabulary[translateKey], key=translateKey, type = 'edit')
 
     def clickBtnAddTranslate(self, values = None) :
         #инициализация диалогового окна и установка дизайна (пустой layout)
         self.dialog = QDialog(self)
         self.dialog.ui = uic.loadUi('addTranslateDialog.ui', self.dialog)
         self.renderDialog()
-    def renderDialog(self, values = None, key = None):
+    def renderDialog(self, values = None, key = None, type = 'save'):
         layout = QVBoxLayout()
         # Ключ перевода (добавляем на layout метку и инпут)
         keyRow = QHBoxLayout()
@@ -176,24 +156,70 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             layout.addLayout(langRowHorizontal)
             layout.addStretch(1)
         layout.addStretch(1)
+
         # Кнопки взаимодействия с диалоговым окном (сохранить и отмена - закрыть диалог)
         buttonsRow = QHBoxLayout()
-        saveButton = QPushButton('Сохранить', objectName='saveButton')
+        saveButton = QPushButton('Сохранить', objectName= 'saveButton' if type == 'save' else 'editButton')
         cancelButton = QPushButton('Отмена', objectName='cancelButton')
         # Обработчик нажатия  кнопок (отмена и сохранить)
         cancelButton.clicked.connect(self.cancelDialogClick)
-        saveButton.clicked.connect(self.saveTranslateClick)
+        saveButton.clicked.connect(self.saveTranslateClick if type == 'save' else self.updateTranslateClick)
         buttonsRow.addWidget(cancelButton)
         buttonsRow.addWidget(saveButton)
+
+        # Информационный текст
+        infoRow = QHBoxLayout()
+        info = QLabel('Внимание! При редактировании ключа будет создана новая запись в словаре!', objectName='dangerLabel')
+        infoRow.addWidget(info)
+
+        layout.addLayout(infoRow)
+        layout.addStretch(1)
         layout.addLayout(buttonsRow)
         # Устанавливаем стили диалогового окна
         self.dialog.setStyleSheet(open("styles/qLineEdit.qss", "r").read())
         self.dialog.setLayout(layout)
         # Показываем диалоговое окно
         self.dialog.show()
-    # Закрываем диалоговое окно
-    def cancelDialogClick(self):
-        self.dialog.close()
+
+    # Обновляем  перевод в файлы (словари)
+    def updateTranslateClick(self):
+        dialogData = {}
+        # Собираем данные с формы (диалоговое окно)
+        emptyInputError = False
+        for dialogInput in range(self.dialog.layout().count()):
+            if (self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout'):
+                dialogItem = self.dialog.layout().itemAt(dialogInput)
+                if (dialogItem.itemAt(1) is not None and dialogItem.itemAt(1).widget().property('name') != None):
+                    # Ключ
+                    name = self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().property('name')
+                    # Значение
+                    value = self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().text()
+                    # Проверяем на наличие пустых полей
+                    if (len(value) < 2):
+                        emptyInputError = True
+                    dialogData[name] = value
+        # В случае пустоты хотя бы в одном из полей информируем пользователя
+        if (emptyInputError):
+            self.showMessage('Ошибка!', 'Не заполнены все поля', 'warning')
+        else:
+            newItem = {}
+            langValueItem = {}
+            # Записываем переводы в файлы локализаций
+            for lang in self.langs:
+                langValueItem[lang] = dialogData[lang]
+            self.initDataVocabulary[dialogData['key']] = langValueItem
+            self.writeJson(self.vocabularyFileName, self.initDataVocabulary)
+            self.showMessage('Обновлено', 'Перевод успешно обновлен!', 'info')
+            # Очищаем поля ввода в диалоговом окне
+            for dialogInput in range(self.dialog.layout().count()):
+                if (self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout'):
+                    dialogItem = self.dialog.layout().itemAt(dialogInput)
+                    if (dialogItem.itemAt(1) is not None and dialogItem.itemAt(1).widget().property('name') != None):
+                        self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().setText('')
+            horizontal = GUI.setRow(self, self.langs, dialogData, dialogData['key'], self.vocabularyLayout)
+            self.initVocabulary()
+            self.indexVocabulary()
+
     # Сохраняем перевод в файлы (словари)
     def saveTranslateClick(self):
         dialogData = {}
@@ -201,7 +227,8 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         emptyInputError = False
         for dialogInput in range(self.dialog.layout().count()):
             if(self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout') :
-                if(self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().property('name') != None) :
+                dialogItem = self.dialog.layout().itemAt(dialogInput)
+                if(dialogItem.itemAt(1) is not None and dialogItem.itemAt(1).widget().property('name') != None) :
                     #Ключ
                     name = self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().property('name')
                     #Значение
@@ -219,16 +246,35 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             #Записываем переводы в файлы локализаций
             for lang in self.langs :
                 langValueItem[lang] = dialogData[lang]
-            self.initData[dialogData['key']] = langValueItem
-            with open(self.vocabularyFileName + '.json', 'w') as f:
-                json.dump(self.initData, f)
-            print(dialogData)
+            if (self.initDataVocabulary is None or len(self.initDataVocabulary) < 1):
+                self.initDataVocabulary = {}
+                self.initDataVocabulary[dialogData['key']] = langValueItem
+                self.initTableHeader()
+                self.initVocabulary()
+            else:
+                self.initDataVocabulary[dialogData['key']] = langValueItem
+            self.writeJson(self.vocabularyFileName, self.initDataVocabulary)
             self.showMessage('Сохранено', 'Перевод успешно добавлен!', 'info')
             # Очищаем поля ввода в диалоговом окне
             for dialogInput in range(self.dialog.layout().count()):
                 if(self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout') :
-                    if(self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().property('name') != None) :
+                    dialogItem = self.dialog.layout().itemAt(dialogInput)
+                    if(dialogItem.itemAt(1) is not None and dialogItem.itemAt(1).widget().property('name') != None) :
                         self.dialog.layout().itemAt(dialogInput).itemAt(1).widget().setText('')
+            horizontal = GUI.setRow(self, self.langs, dialogData, dialogData['key'], self.vocabularyLayout)
+            self.initVocabulary()
+            self.indexVocabulary()
+
+    # Закрываем диалоговое окно
+    def cancelDialogClick(self):
+        self.dialog.close()
+
+    def to_json(self, inputJson):
+        try:
+            json_object = json.load(inputJson)
+        except ValueError as e:
+            return None
+        return json_object
 
 
     def getInputs(self):
@@ -238,133 +284,14 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
     #         return [f for f in listdir(dir) if isfile(join(dir, f))]
     #
     # def getDirs(self, dir=''):
-    #     if (len(dir) > 0):
     #         return [f for f in listdir(dir) if isdir(join(dir, f))]
 
     ################------------------------####################
-    ############****Запускаем работу скрипта****################
+    ########****Запускаем работу скрипта(Laravel)****################
     ################------------------------####################
     def clickBtnRunLaravel(self):
-        # Save
-        dictionary = {'hello': 'world'}
-        np.save('my_file.npy', dictionary)
-
-        # Получаем все переводы из файла
-        # translate_path = Path(self.setting_file_translates)
         try:
-            # translate_path.owner()
-            # translate_file_content = check_output(
-            #    ['php', '-r', 'include "' + self.setting_file_translates + '"; echo json_encode($l);'])
-            # translate_file_content = json.loads(translate_file_content)
-
-            dirDirectories  = [f for f in listdir(self.settingsLaravelRootDir) if isdir(join(self.settingsLaravelRootDir, f))]
-            dirFiles        = [f for f in listdir(self.settingsLaravelRootDir) if isfile(join(self.settingsLaravelRootDir, f))]
-
-            if(len(dirDirectories) > 0) :
-                for tDir in dirDirectories :
-
-
-
-
-                    #templateDirectories = [f for f in listdir(self.settingsLaravelRootDir) if isdir(join(self.settingsLaravelRootDir, f))]
-                    if(tDir == 'errors') :
-                        print(tDir)
-            sys.exit(0)
-
-            # Введенный фрагмент
-            self.input = self.output = self.main_input.toPlainText()
-            soup = BeautifulSoup(self.input, 'html.parser')
-            for script in soup(["script", "style"]):
-                script.extract()  # rip it out
-            text = soup.get_text()
-            # break into lines and remove leading and trailing space on each
-            lines = (line.strip() for line in text.splitlines())
-            # break multi-headlines into a line each
-            chunks = [c for c in filter(None, lines)]
-
-            chunks = filter(self.filter_values, chunks)
-            for v in chunks:
-                print(v)
-            sys.exit(0)
-
-            # Массив с переводами которые уже есть в БД (и которые не нужно будет переводить)
-            exist_translates = DB.check_translates(self.setting_db_name, self.setting_db_user, self.setting_db_pass,
-                                                   self.setting_main_lang, chunks)
-
-            # Подставляем ID существующих переводов, и удаляем эти элементы из списка (chunks)
-            if (len(exist_translates) > 0):
-                for translate in exist_translates:
-                    self.output = self.output.replace(translate[self.setting_main_lang],
-                                                      str(self.setting_l_placeholder) + str(
-                                                          translate['lang_id']) + str(self.setting_r_placeholder))
-                    chunks.pop(chunks.index(translate[self.setting_main_lang]))
-
-            # Перебираем оставщиеся строки, требующие перевода
-            translator = Translator()
-            translator.session.proxies['http'] = '125.26.109.83:8141'
-            translator.session.proxies['http'] = '98.221.88.193:64312'
-            translator.session.proxies['http'] = '188.244.35.162:10801'
-            translator.session.proxies['http'] = '185.162.0.110:10801'
-
-            # языки
-            langs = self.setting_langs.split('|')
-
-            # Прогресс бар
-            i = 0
-            self.progressBar.setMaximum(len(chunks) + 1)
-            # Прогресс бар
-
-            for item in chunks:
-
-                # Прогресс бар
-                i += 1
-                self.progressBar.setValue(i)
-                # Прогресс бар
-
-                translate_file_string = []
-                translate_dic = {}
-                translate_dic[self.setting_main_lang] = item
-
-                # строка для файла переводов
-                translate_file_string = []
-                for lang in langs:
-                    new_translate = translator.translate(item, src=self.setting_main_lang, dest=lang).text
-                    translate_dic[lang] = new_translate  # Пауза для гугла
-                    sleep(3)
-
-                # для запроса в базу (корректировка языков)
-                correct_lang_sql = []
-                # значения для записи в базу
-                string_sql_values = []
-                for item in translate_dic.items():
-                    print(item[0] + '--------' + item[1])
-                    correct_lang_sql.append(DB.lang_field_connector(item[0]))
-                    string_sql_values.append("'" + item[1] + "'")
-                    # Строка для записи в файл переводов
-                    translate_file_string.append('"' + item[0] + '": "' + item[1] + '"')
-                langs_sql = ','.join(correct_lang_sql)
-                string_sql_values = ','.join(string_sql_values)
-
-                # Запись в БД
-                sql = "INSERT INTO modx_a_lang (" + langs_sql + ") VALUES (" + string_sql_values + ");"
-                # values = (translate_dic["uk"], translate_dic["ru"], translate_dic["en"]);
-                last_id = DB.add_translate(self.setting_db_name, self.setting_db_user, self.setting_db_pass, sql)
-
-                # Запись в файл переводов
-                translate_file_string = '{' + ','.join(translate_file_string) + '}'
-                translate_file_string = json.loads(translate_file_string)
-
-                # Добавление нового перевода в строку json переводов
-                translate_file_content[last_id] = translate_file_string
-                self.output = self.output.replace(translate_dic[self.setting_main_lang], "[#" + str(last_id) + "#]")
-
-            self.write_to_file(translate_file_content, self.setting_file_translates)
-            # subprocess.call(['chmod', '0777', '"' + self.setting_file_translates + '"'])
-            self.main_input.setPlainText(self.output)
-            # Информационное сообщение о завершении работы
-            self.showMessage("Перевод завершен!",
-                             "Перевод фрагмента html выполнен. Теперь вы можете его скопировать и добавить в свой шаблон!",
-                             'info')
+            Laravel.run(self.settingsLaravelRootDir, self.setting_main_lang)
         except FileNotFoundError as f:
             self.showMessage('Ошибка!', 'Не верно указан путь к файлу!', 'critical')
 
@@ -375,12 +302,18 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
+        # Информационное окно
+        self.msg = QtWidgets.QMessageBox()
+
         #Инициализация входной и выходной строки
         self.input = ''
         self.output = ''
 
         #Загрузка настроек из файла
         self.load_settings()
+
+        # Длина строки перевода (отоюражение в словаре)
+        self.translateLen = 25
 
         #Языки
         self.langs = self.setting_langs.split('|')
@@ -392,9 +325,16 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
 
         #Загрузка словаря
         self.vocabularyFileName = 'vocabulary'
+        self.vocabularyLayout = self.scrollArea
+        #Загрузка  данных словаря
         with open(self.vocabularyFileName + '.json', 'r') as inputData:
-            self.initData = json.load(inputData)
-        self.initVocabulary()
+            self.initDataVocabulary = self.to_json(inputData)
+        #Функции инициализации
+
+        if (self.initDataVocabulary is not None and len(self.initDataVocabulary) > 0):
+            self.indexVocabulary()
+            self.initTableHeader()
+            self.initVocabulary()
 
         #Обработчики нажатия кнопок
         self.btn_run.clicked.connect(self.click_btn_run)
@@ -404,9 +344,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         #Laravel
         self.btnLaravelRoot.clicked.connect(self.clickBtnLaravelRoot)
         self.btnRunLaravel.clicked.connect(self.clickBtnRunLaravel)
-
-        #Информационное окно
-        self.msg = QtWidgets.QMessageBox()
 
         #Обработчик события изменение позиции курсора
         #self.main_input.cursorPositionChanged.connect(self.changeInput)

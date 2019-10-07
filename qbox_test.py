@@ -1,94 +1,53 @@
+# -*- coding: utf-8 -*-
+
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QCheckBox
+from PyQt5.QtWidgets import QGroupBox
+from PyQt5.QtWidgets import QScrollArea
+
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout
+
 import sys
-from PyQt5.QtWidgets import (QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QApplication, QLabel)
-from PyQt5.QtCore import QSize
-from PyQt5 import QtGui
-from PyQt5.QtGui import QIcon
 
+lst = [u"D", u"E", u"EF", u"F", u"FG", u"G", u"H", u"JS", u"J", u"K", u"M", u"P", u"R", u"S", u"T", u"U", u"V", u"X", u"Y", u"Z"]
 
-class Example(QWidget):
-
+class MyApp(QWidget):
     def __init__(self):
-        super().__init__()
-
+        super(MyApp, self).__init__()
+        window_width = 1200
+        window_height = 600
+        self.setFixedSize(window_width, window_height)
         self.initUI()
 
+    def createLayout_group(self, number):
+        sgroupbox = QGroupBox("Group{}:".format(number), self)
+        layout_groupbox = QVBoxLayout(sgroupbox)
+        layout_groupbox.addStretch(1)
+        return sgroupbox
+
+    def createLayout_Container(self):
+        self.scrollarea = QScrollArea(self)
+        self.scrollarea.setFixedWidth(500)
+        self.scrollarea.setWidgetResizable(True)
+
+        widget = QWidget()
+        self.scrollarea.setWidget(widget)
+        self.layout_SArea = QVBoxLayout(widget)
+
+        for i in range(20):
+            self.layout_SArea.addWidget(self.createLayout_group(i))
+        self.layout_SArea.addStretch(1)
 
     def initUI(self):
-
-        #okButton = QPushButton("OK")
-        #cancelButton = QPushButton("Cancel")
-        vertical    = self.vertical =  QVBoxLayout()
-
-        initData = {}
-        initData = {
-            'hello': {'en': 'Hello', 'ru': 'Привет', 'ua': 'Доброго дня'},
-            'phone': {'en': 'Phone', 'ru': 'Телефон', 'ua': 'Телефон'},
-            'product': {'en': 'Product', 'ru': 'Товар', 'ua': 'Продукт'},
-        }
-
-        langs = ['ru', 'en', 'ua']
-
-        for key in initData:
-            self.horizontal = QHBoxLayout()
-            horizontal = self.horizontal
-            for lang in langs :
-                wordItem = QLabel()
-                wordItem.setText(initData[key][lang])
-                horizontal.addWidget(wordItem)
-
-            #Иконки для кнопок, размер кнопок
-            editButton = QPushButton()
-            deleteButton = QPushButton()
-            editButton.setIcon(QIcon('edit-icon-image-9.png'))
-            deleteButton.setIcon(QIcon('delete-icon-16x16-29 .png'))
-            editButton.setIconSize(QSize(16, 20))
-            deleteButton.setIconSize(QSize(16, 20))
-
-            # Итератор шаблонов (горизонтальных в вертикальном)
-            iterate = self.vertical.count()
-
-            # ID-ки и ключи кнопок (для удаления и редактирования)
-            # ID-ки кнопок должны совпадать и итератором шаблонов (горизонтальных в вертикальном - номер строки перевода(индекс))
-            editButton.setProperty('key', key)
-            deleteButton.setProperty('key', key)
-            deleteButton.setProperty('id', iterate)
-            editButton.setProperty('id', iterate)
-            # Обработчик нажатия  кнопок (редактировать и удалить)
-            editButton.clicked.connect(self.editClick)
-            deleteButton.clicked.connect(self.deleteClick)
-            # Добавляем в каждый горизонтальный шаблон (строку) кнопки удаления и редактирования
-            horizontal.addWidget(editButton)
-            horizontal.addWidget(deleteButton)
-            # Добавляем горизонтальный шаблон (с переводами и кнопками) во "внешний вертикальный" (проще говоря добавляем строку в ячейку)
-            self.vertical.addLayout(horizontal)
-        # Устанавливаем основной (вертикальный шаблон) в окне приложения
-        self.setLayout(vertical)
-
-
-
-        self.setGeometry(300, 300, 500, 150)
-        self.setWindowTitle('Buttons')
+        self.createLayout_Container()
+        self.layout_All = QVBoxLayout(self)
+        self.layout_All.addWidget(self.scrollarea)
         self.show()
-    def editClick(self) :
-        print(self.sender().objectName())
-    def deleteClick(self) :
-        #vlayout = QHBoxLayout(self.horizontal)
 
-        # for i in range(self.vertical.count()):
-        #     layout_item = self.vertical.itemAt(i)
-        #     print(layout_item)
 
-        #print(self.vertical.count())
-        while self.vertical.itemAt(1):
-            child = self.vertical.itemAt(1).takeAt(0)
-            if child.widget():
-                child.widget().deleteLater()
-        self.vertical.removeItem(self.vertical.itemAt(1))
-        #print(self.sender().objectName())
-        print(self.sender().property('id'))
-
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ex = Example()
+    window = MyApp()
     sys.exit(app.exec_())
