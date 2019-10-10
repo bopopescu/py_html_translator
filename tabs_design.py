@@ -350,7 +350,7 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.laravelRootDir = QtWidgets.QLineEdit(self.settings)
-        self.laravelRootDir.setGeometry(QtCore.QRect(230, 560, 761, 35))
+        self.laravelRootDir.setGeometry(QtCore.QRect(230, 575, 761, 35))
         self.laravelRootDir.setStyleSheet("border-radius: 5px; \n"
 "background-color: #FCE94F;\n"
 "color: black;\n"
@@ -358,7 +358,7 @@ class Ui_MainWindow(object):
 "padding-right: 5px;")
         self.laravelRootDir.setObjectName("laravelRootDir")
         self.btnLaravelRoot = QtWidgets.QPushButton(self.settings)
-        self.btnLaravelRoot.setGeometry(QtCore.QRect(20, 560, 191, 35))
+        self.btnLaravelRoot.setGeometry(QtCore.QRect(20, 575, 191, 35))
         self.btnLaravelRoot.setStyleSheet("border-radius: 5px; \n"
 "background-color: black;\n"
 "color: white;")
@@ -403,6 +403,33 @@ class Ui_MainWindow(object):
 "padding-left: 5px;\n"
 "padding-right: 5px;")
         self.rightLaravelPlaceholder.setObjectName("rightLaravelPlaceholder")
+        self.laravelRootDirLang = QtWidgets.QLineEdit(self.settings)
+        self.laravelRootDirLang.setGeometry(QtCore.QRect(230, 650, 761, 35))
+        self.laravelRootDirLang.setStyleSheet("border-radius: 5px; \n"
+"background-color: #FCE94F;\n"
+"color: black;\n"
+"padding-left: 5px;\n"
+"padding-right: 5px;")
+        self.laravelRootDirLang.setObjectName("laravelRootDirLang")
+        self.btnLaravelRootLang = QtWidgets.QPushButton(self.settings)
+        self.btnLaravelRootLang.setGeometry(QtCore.QRect(20, 650, 191, 35))
+        self.btnLaravelRootLang.setStyleSheet("border-radius: 5px; \n"
+"background-color: black;\n"
+"color: white;")
+        self.btnLaravelRootLang.setFlat(False)
+        self.btnLaravelRootLang.setObjectName("btnLaravelRootLang")
+        self.label_14 = QtWidgets.QLabel(self.settings)
+        self.label_14.setGeometry(QtCore.QRect(425, 545, 266, 21))
+        font = QtGui.QFont()
+        font.setFamily("KacstTitle")
+        self.label_14.setFont(font)
+        self.label_14.setObjectName("label_14")
+        self.label_15 = QtWidgets.QLabel(self.settings)
+        self.label_15.setGeometry(QtCore.QRect(425, 625, 266, 21))
+        font = QtGui.QFont()
+        font.setFamily("KacstTitle")
+        self.label_15.setFont(font)
+        self.label_15.setObjectName("label_15")
         self.tabWidget.addTab(self.settings, "")
         self.vocabulary = QtWidgets.QWidget()
         self.vocabulary.setObjectName("vocabulary")
@@ -445,7 +472,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -479,6 +506,9 @@ class Ui_MainWindow(object):
         self.label_11.setText(_translate("MainWindow", "Общие"))
         self.label_12.setText(_translate("MainWindow", "Левый плейсхолдер"))
         self.label_13.setText(_translate("MainWindow", "Правый плейсхолдер"))
+        self.btnLaravelRootLang.setText(_translate("MainWindow", "Выбрать директорию"))
+        self.label_14.setText(_translate("MainWindow", "Корневая директория шаблонов"))
+        self.label_15.setText(_translate("MainWindow", "Корневая директория переводов"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings), _translate("MainWindow", "Настройки"))
         self.addTranslate.setText(_translate("MainWindow", "Добавить"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.vocabulary), _translate("MainWindow", "Словарь"))

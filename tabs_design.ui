@@ -20,7 +20,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="modx">
          <attribute name="title">
@@ -989,7 +989,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>560</y>
+            <y>575</y>
             <width>761</width>
             <height>35</height>
            </rect>
@@ -1006,7 +1006,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>560</y>
+            <y>575</y>
             <width>191</width>
             <height>35</height>
            </rect>
@@ -1122,6 +1122,80 @@ background-color: #FCE94F;
 color: black;
 padding-left: 5px;
 padding-right: 5px;</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="laravelRootDirLang">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>650</y>
+            <width>761</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 5px; 
+background-color: #FCE94F;
+color: black;
+padding-left: 5px;
+padding-right: 5px;</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btnLaravelRootLang">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>650</y>
+            <width>191</width>
+            <height>35</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 5px; 
+background-color: black;
+color: white;</string>
+          </property>
+          <property name="text">
+           <string>Выбрать директорию</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_14">
+          <property name="geometry">
+           <rect>
+            <x>425</x>
+            <y>545</y>
+            <width>266</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>KacstTitle</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Корневая директория шаблонов</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_15">
+          <property name="geometry">
+           <rect>
+            <x>425</x>
+            <y>625</y>
+            <width>266</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>KacstTitle</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Корневая директория переводов</string>
           </property>
          </widget>
         </widget>

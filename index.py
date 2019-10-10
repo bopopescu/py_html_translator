@@ -22,7 +22,7 @@ import re
 import numpy as np
 import io
 from gui import GUI
-from Laravel import Laravel
+import Laravel
 
 #Laravel
 from os import listdir
@@ -336,6 +336,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             self.initTableHeader()
             self.initVocabulary()
 
+
         #Обработчики нажатия кнопок
         self.btn_run.clicked.connect(self.click_btn_run)
         self.btn_save_settings.clicked.connect(self.click_btn_save_settings)
@@ -343,6 +344,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         self.addTranslate.clicked.connect(self.clickBtnAddTranslate)
         #Laravel
         self.btnLaravelRoot.clicked.connect(self.clickBtnLaravelRoot)
+        self.btnLaravelRootLang.clicked.connect(self.clickBtnLaravelRootLang)
         self.btnRunLaravel.clicked.connect(self.clickBtnRunLaravel)
 
         #Обработчик события изменение позиции курсора
@@ -364,6 +366,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
             self.settingsLeftLaravelPlaceholder     = settings.get('LARAVEL', 'LEFT_LARAVEL_PLACEHOLDER')
             self.settingsRightLaravelPlaceholder    = settings.get('LARAVEL', 'RIGHT_LARAVEL_PLACEHOLDER')
             self.settingsLaravelRootDir             = settings.get('LARAVEL', 'ROOT_DIR')
+            self.settingsLaravelRootDirLang         = settings.get('LARAVEL', 'ROOT_DIR_LANG')
             # DB
             self.setting_db_user                    = settings.get('DB', 'DB_USER')
             self.setting_db_name                    = settings.get('DB', 'DB_NAME')
@@ -392,6 +395,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
 
             #Laravel
             self.laravelRootDir.setText(self.settingsLaravelRootDir)
+            self.laravelRootDirLang.setText(self.settingsLaravelRootDirLang)
             self.leftLaravelPlaceholder.setText(self.settingsLeftLaravelPlaceholder)
             self.rightLaravelPlaceholder.setText(self.settingsRightLaravelPlaceholder)
 
@@ -415,6 +419,13 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
     def clickBtnLaravelRoot(self):
         dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
         self.laravelRootDir.setText(dirName)
+
+    ################------------------------####################
+    #######***Выбор корневой директории переводов****###########
+    ################------------------------####################
+    def clickBtnLaravelRootLang(self):
+        dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
+        self.laravelRootDirLang.setText(dirName)
 
     ################------------------------####################
     #############****Обновление настроек****####################
@@ -441,7 +452,8 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
         file_translates = self.file_path.text()
 
         #Корневая директория шаблонов Laravel
-        laravelRootDir  = self.laravelRootDir.text()
+        laravelRootDir      = self.laravelRootDir.text()
+        laravelRootDirLang  = self.laravelRootDirLang.text()
 
         #Плейсхолдеры
         l_placeholder               = self.l_placeholder.text()
@@ -469,6 +481,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, tabs_design.Ui_MainWindow):
                 'LEFT_LARAVEL_PLACEHOLDER': leftLaravelPlaceholder,
                 'RIGHT_LARAVEL_PLACEHOLDER': rightLaravelPlaceholder,
                 'ROOT_DIR': laravelRootDir,
+                'ROOT_DIR_LANG': laravelRootDirLang,
             }
 
             settings['DB'] = {
