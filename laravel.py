@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tabs_design.ui'
+# Form implementation generated from reading ui file 'laravel.ui'
 #
 # Created by: PyQt5 UI code generator 5.12.3
 #
@@ -22,59 +22,6 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
-        self.modx = QtWidgets.QWidget()
-        self.modx.setObjectName("modx")
-        self.main_input = QtWidgets.QPlainTextEdit(self.modx)
-        self.main_input.setGeometry(QtCore.QRect(18, 60, 981, 471))
-        self.main_input.setStyleSheet("border-radius: 10px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 10px;")
-        self.main_input.setObjectName("main_input")
-        self.progressBar = QtWidgets.QProgressBar(self.modx)
-        self.progressBar.setGeometry(QtCore.QRect(140, 555, 856, 36))
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Highlight, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Highlight, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(126, 116, 39))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(145, 145, 145))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Highlight, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.progressBar.setPalette(palette)
-        self.progressBar.setMaximum(100)
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setObjectName("progressBar")
-        self.btn_run = QtWidgets.QPushButton(self.modx)
-        self.btn_run.setGeometry(QtCore.QRect(15, 555, 111, 35))
-        self.btn_run.setStyleSheet("border-radius: 5px; \n"
-"background-color: black;\n"
-"color: white;")
-        self.btn_run.setObjectName("btn_run")
-        self.label_8 = QtWidgets.QLabel(self.modx)
-        self.label_8.setGeometry(QtCore.QRect(25, 25, 211, 17))
-        self.label_8.setObjectName("label_8")
-        self.tabWidget.addTab(self.modx, "")
         self.laravel = QtWidgets.QWidget()
         self.laravel.setObjectName("laravel")
         self.btnRunLaravel = QtWidgets.QPushButton(self.laravel)
@@ -120,18 +67,11 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.laravel, "")
         self.settings = QtWidgets.QWidget()
         self.settings.setObjectName("settings")
-        self.btn_translate_file = QtWidgets.QPushButton(self.settings)
-        self.btn_translate_file.setGeometry(QtCore.QRect(20, 365, 120, 35))
-        self.btn_translate_file.setStyleSheet("border-radius: 5px; \n"
-"background-color: black;\n"
-"color: white;")
-        self.btn_translate_file.setFlat(False)
-        self.btn_translate_file.setObjectName("btn_translate_file")
         self.de_l = QtWidgets.QLabel(self.settings)
         self.de_l.setGeometry(QtCore.QRect(100, 130, 16, 17))
         self.de_l.setObjectName("de_l")
         self.btn_save_settings = QtWidgets.QPushButton(self.settings)
-        self.btn_save_settings.setGeometry(QtCore.QRect(830, 725, 171, 35))
+        self.btn_save_settings.setGeometry(QtCore.QRect(830, 445, 171, 35))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -204,19 +144,6 @@ class Ui_MainWindow(object):
         self.en_l = QtWidgets.QLabel(self.settings)
         self.en_l.setGeometry(QtCore.QRect(100, 90, 16, 17))
         self.en_l.setObjectName("en_l")
-        self.label_2 = QtWidgets.QLabel(self.settings)
-        self.label_2.setGeometry(QtCore.QRect(20, 270, 116, 17))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.label = QtWidgets.QLabel(self.settings)
-        self.label.setGeometry(QtCore.QRect(20, 226, 67, 21))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label.setFont(font)
-        self.label.setStyleSheet("font-style: Arial;")
-        self.label.setObjectName("label")
         self.main_lang = QtWidgets.QComboBox(self.settings)
         self.main_lang.setGeometry(QtCore.QRect(290, 70, 86, 35))
         self.main_lang.setStyleSheet("border-radius: 5px; \n"
@@ -227,14 +154,6 @@ class Ui_MainWindow(object):
         self.main_lang.addItem("")
         self.main_lang.addItem("")
         self.main_lang.addItem("")
-        self.db_user = QtWidgets.QLineEdit(self.settings)
-        self.db_user.setGeometry(QtCore.QRect(150, 260, 113, 35))
-        self.db_user.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.db_user.setObjectName("db_user")
         self.label_5 = QtWidgets.QLabel(self.settings)
         self.label_5.setGeometry(QtCore.QRect(160, 75, 121, 21))
         font = QtGui.QFont()
@@ -254,63 +173,13 @@ class Ui_MainWindow(object):
         font.setFamily("KacstTitle")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
-        self.db_pass = QtWidgets.QLineEdit(self.settings)
-        self.db_pass.setGeometry(QtCore.QRect(150, 305, 113, 35))
-        self.db_pass.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.db_pass.setObjectName("db_pass")
         self.ua_l = QtWidgets.QLabel(self.settings)
         self.ua_l.setGeometry(QtCore.QRect(100, 110, 16, 17))
         self.ua_l.setObjectName("ua_l")
-        self.label_3 = QtWidgets.QLabel(self.settings)
-        self.label_3.setGeometry(QtCore.QRect(20, 315, 67, 17))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label_3.setFont(font)
-        self.label_3.setObjectName("label_3")
-        self.label_6 = QtWidgets.QLabel(self.settings)
-        self.label_6.setGeometry(QtCore.QRect(695, 225, 171, 21))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
         self.en = QtWidgets.QCheckBox(self.settings)
         self.en.setGeometry(QtCore.QRect(80, 90, 16, 23))
         self.en.setText("")
         self.en.setObjectName("en")
-        self.db_name = QtWidgets.QLineEdit(self.settings)
-        self.db_name.setGeometry(QtCore.QRect(150, 215, 113, 35))
-        self.db_name.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.db_name.setObjectName("db_name")
-        self.r_placeholder = QtWidgets.QLineEdit(self.settings)
-        self.r_placeholder.setGeometry(QtCore.QRect(880, 260, 113, 35))
-        self.r_placeholder.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.r_placeholder.setObjectName("r_placeholder")
-        self.label_7 = QtWidgets.QLabel(self.settings)
-        self.label_7.setGeometry(QtCore.QRect(695, 270, 176, 21))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
-        self.l_placeholder = QtWidgets.QLineEdit(self.settings)
-        self.l_placeholder.setGeometry(QtCore.QRect(880, 215, 113, 35))
-        self.l_placeholder.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.l_placeholder.setObjectName("l_placeholder")
         self.de = QtWidgets.QCheckBox(self.settings)
         self.de.setGeometry(QtCore.QRect(80, 130, 16, 23))
         self.de.setText("")
@@ -319,38 +188,19 @@ class Ui_MainWindow(object):
         self.ru.setGeometry(QtCore.QRect(80, 70, 16, 23))
         self.ru.setText("")
         self.ru.setObjectName("ru")
-        self.file_path = QtWidgets.QLineEdit(self.settings)
-        self.file_path.setGeometry(QtCore.QRect(155, 365, 836, 35))
-        self.file_path.setStyleSheet("border-radius: 5px; \n"
-"background-color: #FCE94F;\n"
-"color: black;\n"
-"padding-left: 5px;\n"
-"padding-right: 5px;")
-        self.file_path.setObjectName("file_path")
-        self.label_9 = QtWidgets.QLabel(self.settings)
-        self.label_9.setGeometry(QtCore.QRect(20, 185, 66, 17))
-        font = QtGui.QFont()
-        font.setFamily("KacstTitle")
-        self.label_9.setFont(font)
-        self.label_9.setObjectName("label_9")
-        self.line = QtWidgets.QFrame(self.settings)
-        self.line.setGeometry(QtCore.QRect(20, 195, 971, 16))
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
         self.label_10 = QtWidgets.QLabel(self.settings)
-        self.label_10.setGeometry(QtCore.QRect(20, 450, 66, 17))
+        self.label_10.setGeometry(QtCore.QRect(20, 170, 66, 17))
         font = QtGui.QFont()
         font.setFamily("KacstTitle")
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
         self.line_2 = QtWidgets.QFrame(self.settings)
-        self.line_2.setGeometry(QtCore.QRect(20, 460, 971, 16))
+        self.line_2.setGeometry(QtCore.QRect(20, 180, 971, 16))
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.laravelRootDir = QtWidgets.QLineEdit(self.settings)
-        self.laravelRootDir.setGeometry(QtCore.QRect(230, 575, 761, 35))
+        self.laravelRootDir.setGeometry(QtCore.QRect(230, 295, 761, 35))
         self.laravelRootDir.setStyleSheet("border-radius: 5px; \n"
 "background-color: #FCE94F;\n"
 "color: black;\n"
@@ -358,7 +208,7 @@ class Ui_MainWindow(object):
 "padding-right: 5px;")
         self.laravelRootDir.setObjectName("laravelRootDir")
         self.btnLaravelRoot = QtWidgets.QPushButton(self.settings)
-        self.btnLaravelRoot.setGeometry(QtCore.QRect(20, 575, 191, 35))
+        self.btnLaravelRoot.setGeometry(QtCore.QRect(20, 295, 191, 35))
         self.btnLaravelRoot.setStyleSheet("border-radius: 5px; \n"
 "background-color: black;\n"
 "color: white;")
@@ -376,7 +226,7 @@ class Ui_MainWindow(object):
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.leftLaravelPlaceholder = QtWidgets.QLineEdit(self.settings)
-        self.leftLaravelPlaceholder.setGeometry(QtCore.QRect(205, 495, 113, 35))
+        self.leftLaravelPlaceholder.setGeometry(QtCore.QRect(205, 215, 113, 35))
         self.leftLaravelPlaceholder.setStyleSheet("border-radius: 5px; \n"
 "background-color: #FCE94F;\n"
 "color: black;\n"
@@ -384,19 +234,19 @@ class Ui_MainWindow(object):
 "padding-right: 5px;")
         self.leftLaravelPlaceholder.setObjectName("leftLaravelPlaceholder")
         self.label_12 = QtWidgets.QLabel(self.settings)
-        self.label_12.setGeometry(QtCore.QRect(20, 505, 171, 21))
+        self.label_12.setGeometry(QtCore.QRect(20, 225, 171, 21))
         font = QtGui.QFont()
         font.setFamily("KacstTitle")
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
         self.label_13 = QtWidgets.QLabel(self.settings)
-        self.label_13.setGeometry(QtCore.QRect(345, 505, 176, 21))
+        self.label_13.setGeometry(QtCore.QRect(345, 225, 176, 21))
         font = QtGui.QFont()
         font.setFamily("KacstTitle")
         self.label_13.setFont(font)
         self.label_13.setObjectName("label_13")
         self.rightLaravelPlaceholder = QtWidgets.QLineEdit(self.settings)
-        self.rightLaravelPlaceholder.setGeometry(QtCore.QRect(530, 495, 113, 35))
+        self.rightLaravelPlaceholder.setGeometry(QtCore.QRect(530, 215, 113, 35))
         self.rightLaravelPlaceholder.setStyleSheet("border-radius: 5px; \n"
 "background-color: #FCE94F;\n"
 "color: black;\n"
@@ -404,7 +254,7 @@ class Ui_MainWindow(object):
 "padding-right: 5px;")
         self.rightLaravelPlaceholder.setObjectName("rightLaravelPlaceholder")
         self.laravelRootDirLang = QtWidgets.QLineEdit(self.settings)
-        self.laravelRootDirLang.setGeometry(QtCore.QRect(230, 650, 761, 35))
+        self.laravelRootDirLang.setGeometry(QtCore.QRect(230, 370, 761, 35))
         self.laravelRootDirLang.setStyleSheet("border-radius: 5px; \n"
 "background-color: #FCE94F;\n"
 "color: black;\n"
@@ -412,20 +262,20 @@ class Ui_MainWindow(object):
 "padding-right: 5px;")
         self.laravelRootDirLang.setObjectName("laravelRootDirLang")
         self.btnLaravelRootLang = QtWidgets.QPushButton(self.settings)
-        self.btnLaravelRootLang.setGeometry(QtCore.QRect(20, 650, 191, 35))
+        self.btnLaravelRootLang.setGeometry(QtCore.QRect(20, 370, 191, 35))
         self.btnLaravelRootLang.setStyleSheet("border-radius: 5px; \n"
 "background-color: black;\n"
 "color: white;")
         self.btnLaravelRootLang.setFlat(False)
         self.btnLaravelRootLang.setObjectName("btnLaravelRootLang")
         self.label_14 = QtWidgets.QLabel(self.settings)
-        self.label_14.setGeometry(QtCore.QRect(425, 545, 266, 21))
+        self.label_14.setGeometry(QtCore.QRect(425, 265, 266, 21))
         font = QtGui.QFont()
         font.setFamily("KacstTitle")
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
         self.label_15 = QtWidgets.QLabel(self.settings)
-        self.label_15.setGeometry(QtCore.QRect(425, 625, 266, 21))
+        self.label_15.setGeometry(QtCore.QRect(425, 345, 266, 21))
         font = QtGui.QFont()
         font.setFamily("KacstTitle")
         self.label_15.setFont(font)
@@ -472,23 +322,17 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "PyHtmlTranslate"))
-        self.btn_run.setText(_translate("MainWindow", "Начать"))
-        self.label_8.setText(_translate("MainWindow", "Поле ввода HTML фрагмента"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.modx), _translate("MainWindow", "MoDx"))
         self.btnRunLaravel.setText(_translate("MainWindow", "Начать"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.laravel), _translate("MainWindow", "Laravel"))
-        self.btn_translate_file.setText(_translate("MainWindow", "Выбрать файл"))
         self.de_l.setText(_translate("MainWindow", "de"))
         self.btn_save_settings.setText(_translate("MainWindow", "Сохранить настройки"))
         self.en_l.setText(_translate("MainWindow", "en"))
-        self.label_2.setText(_translate("MainWindow", "Пользователь"))
-        self.label.setText(_translate("MainWindow", "БД"))
         self.main_lang.setItemText(0, _translate("MainWindow", "ru"))
         self.main_lang.setItemText(1, _translate("MainWindow", "en"))
         self.main_lang.setItemText(2, _translate("MainWindow", "ua"))
@@ -497,10 +341,6 @@ class Ui_MainWindow(object):
         self.ru_l.setText(_translate("MainWindow", "ru"))
         self.label_4.setText(_translate("MainWindow", "Языки"))
         self.ua_l.setText(_translate("MainWindow", "ua"))
-        self.label_3.setText(_translate("MainWindow", "Пароль"))
-        self.label_6.setText(_translate("MainWindow", "Левый плейсхолдер"))
-        self.label_7.setText(_translate("MainWindow", "Правый плейсхолдер"))
-        self.label_9.setText(_translate("MainWindow", "MoDx"))
         self.label_10.setText(_translate("MainWindow", "Laravel"))
         self.btnLaravelRoot.setText(_translate("MainWindow", "Выбрать директорию"))
         self.label_11.setText(_translate("MainWindow", "Общие"))

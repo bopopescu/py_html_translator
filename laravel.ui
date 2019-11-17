@@ -20,167 +20,8 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
-        <widget class="QWidget" name="modx">
-         <attribute name="title">
-          <string>MoDx</string>
-         </attribute>
-         <widget class="QPlainTextEdit" name="main_input">
-          <property name="geometry">
-           <rect>
-            <x>18</x>
-            <y>60</y>
-            <width>981</width>
-            <height>471</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 10px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 10px;</string>
-          </property>
-         </widget>
-         <widget class="QProgressBar" name="progressBar">
-          <property name="geometry">
-           <rect>
-            <x>140</x>
-            <y>555</y>
-            <width>856</width>
-            <height>36</height>
-           </rect>
-          </property>
-          <property name="palette">
-           <palette>
-            <active>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="PlaceholderText">
-              <brush brushstyle="NoBrush">
-               <color alpha="128">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="PlaceholderText">
-              <brush brushstyle="NoBrush">
-               <color alpha="128">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>126</red>
-                <green>116</green>
-                <blue>39</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>145</red>
-                <green>145</green>
-                <blue>145</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="PlaceholderText">
-              <brush brushstyle="NoBrush">
-               <color alpha="128">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
-          </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="btn_run">
-          <property name="geometry">
-           <rect>
-            <x>15</x>
-            <y>555</y>
-            <width>111</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: black;
-color: white;</string>
-          </property>
-          <property name="text">
-           <string>Начать</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_8">
-          <property name="geometry">
-           <rect>
-            <x>25</x>
-            <y>25</y>
-            <width>211</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Поле ввода HTML фрагмента</string>
-          </property>
-         </widget>
-        </widget>
         <widget class="QWidget" name="laravel">
          <attribute name="title">
           <string>Laravel</string>
@@ -315,27 +156,6 @@ color: white;</string>
          <attribute name="title">
           <string>Настройки</string>
          </attribute>
-         <widget class="QPushButton" name="btn_translate_file">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>365</y>
-            <width>120</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: black;
-color: white;</string>
-          </property>
-          <property name="text">
-           <string>Выбрать файл</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
          <widget class="QLabel" name="de_l">
           <property name="geometry">
            <rect>
@@ -353,7 +173,7 @@ color: white;</string>
           <property name="geometry">
            <rect>
             <x>830</x>
-            <y>725</y>
+            <y>445</y>
             <width>171</width>
             <height>35</height>
            </rect>
@@ -579,45 +399,6 @@ color: white;</string>
            <string>en</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_2">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>270</y>
-            <width>116</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Пользователь</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>226</y>
-            <width>67</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font-style: Arial;</string>
-          </property>
-          <property name="text">
-           <string>БД</string>
-          </property>
-         </widget>
          <widget class="QComboBox" name="main_lang">
           <property name="geometry">
            <rect>
@@ -652,23 +433,6 @@ color: black;</string>
             <string>de</string>
            </property>
           </item>
-         </widget>
-         <widget class="QLineEdit" name="db_user">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>260</y>
-            <width>113</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
-          </property>
          </widget>
          <widget class="QLabel" name="label_5">
           <property name="geometry">
@@ -732,23 +496,6 @@ padding-right: 5px;</string>
            <string>Языки</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="db_pass">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>305</y>
-            <width>113</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="ua_l">
           <property name="geometry">
            <rect>
@@ -762,42 +509,6 @@ padding-right: 5px;</string>
            <string>ua</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_3">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>315</y>
-            <width>67</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Пароль</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>695</x>
-            <y>225</y>
-            <width>171</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Левый плейсхолдер</string>
-          </property>
-         </widget>
          <widget class="QCheckBox" name="en">
           <property name="geometry">
            <rect>
@@ -809,75 +520,6 @@ padding-right: 5px;</string>
           </property>
           <property name="text">
            <string/>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="db_name">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>215</y>
-            <width>113</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="r_placeholder">
-          <property name="geometry">
-           <rect>
-            <x>880</x>
-            <y>260</y>
-            <width>113</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_7">
-          <property name="geometry">
-           <rect>
-            <x>695</x>
-            <y>270</y>
-            <width>176</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Правый плейсхолдер</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="l_placeholder">
-          <property name="geometry">
-           <rect>
-            <x>880</x>
-            <y>215</y>
-            <width>113</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="de">
@@ -906,59 +548,11 @@ padding-right: 5px;</string>
            <string/>
           </property>
          </widget>
-         <widget class="QLineEdit" name="file_path">
-          <property name="geometry">
-           <rect>
-            <x>155</x>
-            <y>365</y>
-            <width>836</width>
-            <height>35</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">border-radius: 5px; 
-background-color: #FCE94F;
-color: black;
-padding-left: 5px;
-padding-right: 5px;</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_9">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>185</y>
-            <width>66</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>KacstTitle</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>MoDx</string>
-          </property>
-         </widget>
-         <widget class="Line" name="line">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>195</y>
-            <width>971</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_10">
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>450</y>
+            <y>170</y>
             <width>66</width>
             <height>17</height>
            </rect>
@@ -976,7 +570,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>460</y>
+            <y>180</y>
             <width>971</width>
             <height>16</height>
            </rect>
@@ -989,7 +583,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>575</y>
+            <y>295</y>
             <width>761</width>
             <height>35</height>
            </rect>
@@ -1006,7 +600,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>575</y>
+            <y>295</y>
             <width>191</width>
             <height>35</height>
            </rect>
@@ -1058,7 +652,7 @@ color: white;</string>
           <property name="geometry">
            <rect>
             <x>205</x>
-            <y>495</y>
+            <y>215</y>
             <width>113</width>
             <height>35</height>
            </rect>
@@ -1075,7 +669,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>505</y>
+            <y>225</y>
             <width>171</width>
             <height>21</height>
            </rect>
@@ -1093,7 +687,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>345</x>
-            <y>505</y>
+            <y>225</y>
             <width>176</width>
             <height>21</height>
            </rect>
@@ -1111,7 +705,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>530</x>
-            <y>495</y>
+            <y>215</y>
             <width>113</width>
             <height>35</height>
            </rect>
@@ -1128,7 +722,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>230</x>
-            <y>650</y>
+            <y>370</y>
             <width>761</width>
             <height>35</height>
            </rect>
@@ -1145,7 +739,7 @@ padding-right: 5px;</string>
           <property name="geometry">
            <rect>
             <x>20</x>
-            <y>650</y>
+            <y>370</y>
             <width>191</width>
             <height>35</height>
            </rect>
@@ -1166,7 +760,7 @@ color: white;</string>
           <property name="geometry">
            <rect>
             <x>425</x>
-            <y>545</y>
+            <y>265</y>
             <width>266</width>
             <height>21</height>
            </rect>
@@ -1184,7 +778,7 @@ color: white;</string>
           <property name="geometry">
            <rect>
             <x>425</x>
-            <y>625</y>
+            <y>345</y>
             <width>266</width>
             <height>21</height>
            </rect>

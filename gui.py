@@ -3,12 +3,19 @@ from PyQt5              import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtCore       import QSize
 from PyQt5.QtGui        import QIcon
 import json
+import sys
+import laravel
+from laravel import Ui_MainWindow
 
-class GUI () :
+class GUI (QtWidgets.QMainWindow, laravel.Ui_MainWindow) :
     def __init__(self):
         # Типы кнопок (удалить, редактировать)
         self.editType = 'edit'
         self.deleteType = 'delete'
+        self.processedItemCounter = 0
+
+        super().__init__()
+        self.setupUi(self)
 
     def setTableHeader(langs, layout):
         # Шапка таблицы
@@ -39,9 +46,12 @@ class GUI () :
         i = 1
         for lang in langs:
             wordItem = QLabel()
-            text = data[lang]
-            if (len(data[lang]) > self.translateLen):
-                text = data[lang][:self.translateLen] + '...'
+            try:
+                text = data[lang]
+                if (len(data[lang]) > self.translateLen):
+                    text = data[lang][:self.translateLen] + '...'
+            except KeyError:
+                text = ''
             wordItem.setText(text)
             horizontalRowGrid.addWidget(wordItem, 0, i)
             i += 1
