@@ -486,6 +486,9 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             functionArgs = {
                 'lang': self.setting_main_lang,
                 'progress_bar_item' : self.progressBarLaravel,
+                'current_file' : self.current_file,
+                'current_file_current_item' : self.current_file_current_item,
+                'current_file_total_item' : self.current_file_total_item,
             }
             worker = Worker(Laravel.run, self.settingsLaravelRootDir, **functionArgs)
             worker.signals.progress.connect(Laravel.progressBar)

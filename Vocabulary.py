@@ -114,7 +114,7 @@ def indexLaraTranslate() :
     langRoot = settings.get('LARAVEL', 'ROOT_DIR_LANG')
     data = {}
     for lang in langs:
-        lang = DB.lang_field_connector(lang)
+        lang = lang_field_connector(lang)
         data[lang] = {}
         for allowFile in _ALLOWED_DIRS :
             data[lang][allowFile] = {}
@@ -166,6 +166,19 @@ def makeKey(input):
     # Заменяем пробелы на нижнее подчеркивание
     replSpaceToUnderscore   = clearRepeatSpacesStr.replace(' ', '_')
     return replSpaceToUnderscore
+
+################------------------------####################
+#############******Коррекция языков*******##################
+################------------------------####################
+def lang_field_connector(lang_str):
+    langs_correct = {
+        'uk': 'ua'
+    }
+    if (len(lang_str) > 0):
+        if lang_str in langs_correct:
+            return langs_correct[lang_str]
+        else:
+            return lang_str
 
 ################------------------------####################
 #############****Инициализация словаря****##################

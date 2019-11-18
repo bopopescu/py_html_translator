@@ -30,22 +30,24 @@ vocabularyFileName = 'vocabulary'
 def progressBar(i):
     print(i)
 
-def run(bladeDir, lang, progress_callback, progress_bar_item):
+def run(bladeDir, lang, progress_callback, **guiElements):
 
     indexVocabulary = Vocabulary.loadJson(vocabularyFileName + '_' + lang)
     Vocabulary.indexLaraTranslate()
     initDataVocabulary = Vocabulary.loadJson(vocabularyFileName)
 
     for filename in Path(bladeDir).glob('**/*.blade.php'):
-        # bladeHtml       = ''
         bladeHtml       = Parser.getFileContent(filename)
         items           =  Parser.getFromHtml(bladeHtml)
         filterItems     = list(filter(Parser.filterValuesLaravel, items))
 
-        progress_bar_item.setMaximum(len(filterItems) + 1)
+        guiElements['current_file'].setText(str(filename))
+        guiElements['current_file_total_item'].setText(str(len(filterItems)))
+        guiElements['progress_bar_item'].setMaximum(len(filterItems) + 1)
         print(str(filename) + '----' + str(len(filterItems)))
         # Количество переведенных элементов
         i = 0
+        guiElements['current_file_current_item'].setText(str(i))
         for item in filterItems:
             indexLaraTranslate = Vocabulary.checkTranslateInFramework(filename, item, lang)
             # Если перевод присутствует в файле переводов фреймворка, используем его.
@@ -66,5 +68,6 @@ def run(bladeDir, lang, progress_callback, progress_bar_item):
                 file_handler.write(bladeHtml)
             # Обновляем счетчик количества выполненных переводов
             i += 1
-            progress_callback.emit(i)
-            progress_bar_item.setValue(i)
+            # progress_callback.emit(i)
+            guiElements['progress_bar_item'].setValue(i)
+            guiElements['current_file_current_item'].setText(str(i))

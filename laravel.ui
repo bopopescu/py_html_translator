@@ -30,7 +30,7 @@
           <property name="geometry">
            <rect>
             <x>15</x>
-            <y>35</y>
+            <y>195</y>
             <width>111</width>
             <height>35</height>
            </rect>
@@ -48,7 +48,7 @@ color: white;</string>
           <property name="geometry">
            <rect>
             <x>140</x>
-            <y>35</y>
+            <y>195</y>
             <width>856</width>
             <height>36</height>
            </rect>
@@ -149,6 +149,136 @@ color: white;</string>
           </property>
           <property name="value">
            <number>0</number>
+          </property>
+         </widget>
+         <widget class="QLabel" name="translated">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>25</y>
+            <width>196</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Общее кол-во элементов :</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="translated_2">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>110</y>
+            <width>86</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Перевожу :</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="current_file">
+          <property name="geometry">
+           <rect>
+            <x>125</x>
+            <y>110</y>
+            <width>866</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="translated_3">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>150</y>
+            <width>231</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Переведено (в текущем файле)</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="total_items_count">
+          <property name="geometry">
+           <rect>
+            <x>235</x>
+            <y>25</y>
+            <width>46</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="translated_4">
+          <property name="geometry">
+           <rect>
+            <x>25</x>
+            <y>65</y>
+            <width>186</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Кол-во в текущем файле :</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="items_count_current_file">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>60</y>
+            <width>46</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="current_file_current_item">
+          <property name="geometry">
+           <rect>
+            <x>265</x>
+            <y>150</y>
+            <width>46</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="translated_5">
+          <property name="geometry">
+           <rect>
+            <x>335</x>
+            <y>150</y>
+            <width>21</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>из</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="current_file_total_item">
+          <property name="geometry">
+           <rect>
+            <x>380</x>
+            <y>150</y>
+            <width>46</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </widget>
