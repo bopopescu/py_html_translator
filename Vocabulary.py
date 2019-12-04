@@ -146,6 +146,11 @@ def loadJson(vocabularyFileName):
             return None
 
 
+def checkFile(fileName):
+    if (isfile(fileName)) :
+        return True
+    return None
+
 # Проверка наличия слова в переводах приложения
 # return key || None
 def checkIndex(indexVocabulary, item):

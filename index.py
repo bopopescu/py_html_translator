@@ -38,7 +38,7 @@ class WorkerSignals(QObject):
     finished = pyqtSignal()
     error = pyqtSignal(tuple)
     result = pyqtSignal(object)
-    progress = pyqtSignal(int)
+    progress = pyqtSignal(object)
 
 class Worker(QRunnable):
     '''
@@ -302,7 +302,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             self.vocabularyLayout.removeItem(self.vocabularyLayout.itemAt(horizontalRowLayoutId))
 
             del self.initDataVocabulary[keyAttr]
-            with open(self.vocabularyFileName + '.json', 'w') as f:
+            with open(self.appTmpDir + self.vocabularyFileName + '.json', 'w') as f:
                 json.dump(self.initDataVocabulary, f)
             Vocabulary.indexVocabulary()
 
@@ -476,6 +476,8 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             return None
         return json_object
 
+    
+
     ################------------------------####################
     ########****Запускаем работу скрипта(Laravel)****################
     ################------------------------####################
@@ -489,9 +491,10 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
                 'current_file' : self.current_file,
                 'current_file_current_item' : self.current_file_current_item,
                 'current_file_total_item' : self.current_file_total_item,
+                'items_count_current_file' : self.items_count_current_file,
             }
             worker = Worker(Laravel.run, self.settingsLaravelRootDir, **functionArgs)
-            worker.signals.progress.connect(Laravel.progressBar)
+            worker.signals.progress.connect(GUI.progressBar)
             # Execute
             self.threadpool.start(worker)
             # Laravel.run(self.settingsLaravelRootDir, self.setting_main_lang)

@@ -12,13 +12,14 @@ from pathlib import Path
 import Parser
 import Vocabulary
 import GTranslate
-import gui
+from gui import GUI
 
 # Временная директория приложения
-appTmpDir = os.path.expanduser('~') + '/.pyHtmlTranslate/'
+appTmpDir = os.path.expanduser('~') + '/.pyLaravelTranslate/'
 
 # Читаем настройки из файла
 settings_path = appTmpDir + 'settings.ini'
+
 viewDirNameLaravel = 'views'
 if os.path.exists(settings_path):
     settings = configparser.ConfigParser()
@@ -27,28 +28,33 @@ if os.path.exists(settings_path):
 
 vocabularyFileName = 'vocabulary'
 
-def progressBar(i):
-    print(i)
-
 def run(bladeDir, lang, progress_callback, **guiElements):
+
+    checkVocabularyFileName = Vocabulary.checkFile(vocabularyFileName + '_' + lang)
+    if (checkVocabularyFileName is None) :
+        Vocabulary.writeJson(vocabularyFileName + '_' + lang, {})
 
     indexVocabulary = Vocabulary.loadJson(vocabularyFileName + '_' + lang)
     Vocabulary.indexLaraTranslate()
-    initDataVocabulary = Vocabulary.loadJson(vocabularyFileName)
 
     for filename in Path(bladeDir).glob('**/*.blade.php'):
         bladeHtml       = Parser.getFileContent(filename)
         items           =  Parser.getFromHtml(bladeHtml)
         filterItems     = list(filter(Parser.filterValuesLaravel, items))
 
-        guiElements['current_file'].setText(str(filename))
-        guiElements['current_file_total_item'].setText(str(len(filterItems)))
-        guiElements['progress_bar_item'].setMaximum(len(filterItems) + 1)
-        print(str(filename) + '----' + str(len(filterItems)))
         # Количество переведенных элементов
         i = 0
-        guiElements['current_file_current_item'].setText(str(i))
+
+        print('Текущий файл: ' + str(filename))
+
+        # Передача в GUI
+        current_file = filename
+        current_file_total_item = len(filterItems)
+
         for item in filterItems:
+
+            print('    Текущее слово: ' + item)
+
             indexLaraTranslate = Vocabulary.checkTranslateInFramework(filename, item, lang)
             # Если перевод присутствует в файле переводов фреймворка, используем его.
             # Также проверяем наличие его в словаре, если нет - добавляем (TODO)
@@ -62,12 +68,22 @@ def run(bladeDir, lang, progress_callback, **guiElements):
                     gTranslateApiResult = GTranslate.getGTranslateApi(item, lang, langs)
                     if gTranslateApiResult is not None :
                         itemIndex = Vocabulary.saveFromGtranslateApi(gTranslateApiResult)
+                        Vocabulary.indexVocabulary()
             if(itemIndex is not None) :
                 bladeHtml = bladeHtml.replace(item, settings.get('LARAVEL', 'LEFT_LARAVEL_PLACEHOLDER') + str(itemIndex) + settings.get('LARAVEL', 'RIGHT_LARAVEL_PLACEHOLDER'))
             with open(filename, 'w') as file_handler:
                 file_handler.write(bladeHtml)
             # Обновляем счетчик количества выполненных переводов
             i += 1
-            # progress_callback.emit(i)
-            guiElements['progress_bar_item'].setValue(i)
-            guiElements['current_file_current_item'].setText(str(i))
+
+            progressData = {
+                'current_file': current_file,
+                'current_file_current_item': i,
+                'current_file_total_item': current_file_total_item,
+                'gui_elements': guiElements,
+            }
+
+            current_file = None
+            current_file_total_item = None
+
+            progress_callback.emit(progressData)

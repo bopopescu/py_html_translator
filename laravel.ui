@@ -56,12 +56,30 @@ color: white;</string>
           <property name="palette">
            <palette>
             <active>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
              <colorrole role="Text">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -85,12 +103,30 @@ color: white;</string>
              </colorrole>
             </active>
             <inactive>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
              <colorrole role="Text">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -106,20 +142,38 @@ color: white;</string>
              <colorrole role="PlaceholderText">
               <brush brushstyle="NoBrush">
                <color alpha="128">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
             </inactive>
             <disabled>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
              <colorrole role="Text">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>126</red>
-                <green>116</green>
-                <blue>39</blue>
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>128</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -143,6 +197,9 @@ color: white;</string>
              </colorrole>
             </disabled>
            </palette>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: green;</string>
           </property>
           <property name="maximum">
            <number>100</number>

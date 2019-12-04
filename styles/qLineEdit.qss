@@ -30,3 +30,6 @@ QLabel#dangerLabel{
     color: red;
     text-align: center;
 }
+QProgressBar#progressBarLaravel {
+    text-color: red;
+}

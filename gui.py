@@ -41,7 +41,13 @@ class GUI (QtWidgets.QMainWindow, laravel.Ui_MainWindow) :
         horizontal = QHBoxLayout()
         horizontalRowGrid = QGridLayout()
         # Ключ перевода
-        rowKey = QLabel(key)
+        shortKey = key
+        # Ограничиваем длину
+        if (len(key) > self.translateLen):
+            shortKey = key[:self.translateLen] + '...'
+
+        rowKey = QLabel(shortKey)
+        rowKey.setToolTip(key)
         horizontalRowGrid.addWidget(rowKey, 0, 0)
         i = 1
         for lang in langs:
@@ -95,3 +101,18 @@ class GUI (QtWidgets.QMainWindow, laravel.Ui_MainWindow) :
                     for qGridItemIndex in range(qGridItems.count()) :
                         print(qGridItems.itemAt(qGridItemIndex).widget())
                         # print(qGridItems.itemAt(2).widget().setParent(None))
+
+    def progressBar(progressData):
+        gui                                 = progressData['gui_elements']
+        current_file_str                    = str(progressData['current_file'])
+        current_file_total_item_str         = str(progressData['current_file_total_item'])
+        current_file_current_item_str       = str(progressData['current_file_current_item'])
+
+        if (progressData['current_file'] is not None):
+            gui['current_file'].setText(current_file_str)
+        if (progressData['current_file_total_item'] is not None):
+            gui['current_file_total_item'].setText(current_file_total_item_str)
+            gui['items_count_current_file'].setText(current_file_total_item_str)
+            gui['progress_bar_item'].setMaximum(progressData['current_file_total_item'])
+        gui['current_file_current_item'].setText(current_file_current_item_str)
+        gui['progress_bar_item'].setValue(progressData['current_file_current_item'])
