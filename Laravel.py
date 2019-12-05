@@ -13,6 +13,7 @@ import Parser
 import Vocabulary
 import GTranslate
 from gui import GUI
+from time import sleep
 
 # Временная директория приложения
 appTmpDir = os.path.expanduser('~') + '/.pyLaravelTranslate/'
@@ -56,6 +57,7 @@ def run(bladeDir, lang, progress_callback, **guiElements):
             print('    Текущее слово: ' + item)
 
             indexLaraTranslate = Vocabulary.checkTranslateInFramework(filename, item, lang)
+
             # Если перевод присутствует в файле переводов фреймворка, используем его.
             # Также проверяем наличие его в словаре, если нет - добавляем (TODO)
             if (indexLaraTranslate is not None):
@@ -85,5 +87,5 @@ def run(bladeDir, lang, progress_callback, **guiElements):
 
             current_file = None
             current_file_total_item = None
-
+            sleep(.100)
             progress_callback.emit(progressData)

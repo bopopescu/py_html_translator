@@ -104,7 +104,7 @@ def getTranslateFileName(bladeFilename, lang):
         return None
 
     if (fName in _ALLOWED_DIRS) :
-        fTrPath = firstPartPath + 'lang/' + DB.lang_field_connector(lang) + '/' + fName + '.php'
+        fTrPath = firstPartPath + 'lang/' + lang_field_connector(lang) + '/' + fName + '.php'
         return fName if isfile(fTrPath) else None
 
 ################------------------------####################
@@ -125,6 +125,9 @@ def indexLaraTranslate() :
                 if (len(allInputs) > 0) :
                     for reItem in allInputs :
                         reItemSplit = reItem.split('=>')
+
+                        print(file)
+
                         key     = re.search(r'\'.+\'', reItemSplit[0]).group(0).replace("'", '')
                         value   = re.search(r'\'.+\'', reItemSplit[1]).group(0).replace("'", '')
                         data[lang][allowFile].update({value: key})
@@ -147,7 +150,7 @@ def loadJson(vocabularyFileName):
 
 
 def checkFile(fileName):
-    if (isfile(fileName)) :
+    if (isfile(appTmpDir + fileName + '.json')) :
         return True
     return None
 

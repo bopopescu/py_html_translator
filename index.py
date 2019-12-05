@@ -476,6 +476,9 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             return None
         return json_object
 
+    def thread_complete(self):
+        self.showMessage('Поздравляем!', 'Процесс перевода успешно завершен', 'info')
+
     
 
     ################------------------------####################
@@ -495,6 +498,8 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             }
             worker = Worker(Laravel.run, self.settingsLaravelRootDir, **functionArgs)
             worker.signals.progress.connect(GUI.progressBar)
+            worker.signals.finished.connect(self.thread_complete)
+
             # Execute
             self.threadpool.start(worker)
             # Laravel.run(self.settingsLaravelRootDir, self.setting_main_lang)

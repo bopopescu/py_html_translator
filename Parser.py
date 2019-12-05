@@ -18,7 +18,7 @@ def getFileContent(pathAndFileName):
         return data
 
 def filterValuesLaravel(x):
-    if (re.findall(r'{{.+}}|->|{!!.+|.+!!}|{!!.+!!}|@|{{\s.+}}|:{{.+}}|\+{{.+}}', x)):
+    if (re.findall(r'{{.+}}|->|=>|\]\)|{!!.+|.+!!}|{!!.+!!}|@|{{\s.+}}|:{{.+}}|\+{{.+}}', x)):
         return 0
     if len(x) < 2:
         return 0
