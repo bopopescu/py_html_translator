@@ -2,16 +2,10 @@ import configparser
 from PyQt5              import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtWidgets import (QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QApplication, QLabel, QGridLayout, QDialog)
 from PyQt5.QtCore import *
-from time               import sleep
-from googletrans        import Translator
-from subprocess         import check_output
-from bs4                import BeautifulSoup
-from pathlib            import Path
 import sys
 import laravel
 import os
 import json
-import codecs
 import re
 from gui import GUI
 import Laravel
@@ -103,13 +97,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
 
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
 
-        # Информационное окно
-        self.msg = QtWidgets.QMessageBox()
-
-        #Инициализация входной и выходной строки
-        self.input = ''
-        self.output = ''
-
         #Загрузка настроек из файла
         self.load_settings()
 
@@ -161,7 +148,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             self.setting_langs                      = settings.get('GENERAL', 'LANGS')
             self.setting_main_lang                  = settings.get('GENERAL', 'MAIN_LANG')
 
-            #LARAVEl
+            #LARAVEL
             self.settingsLeftLaravelPlaceholder     = settings.get('LARAVEL', 'LEFT_LARAVEL_PLACEHOLDER')
             self.settingsRightLaravelPlaceholder    = settings.get('LARAVEL', 'RIGHT_LARAVEL_PLACEHOLDER')
             self.settingsLaravelRootDir             = settings.get('LARAVEL', 'ROOT_DIR')
@@ -187,20 +174,6 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             self.laravelRootDirLang.setText(self.settingsLaravelRootDirLang)
             self.leftLaravelPlaceholder.setText(self.settingsLeftLaravelPlaceholder)
             self.rightLaravelPlaceholder.setText(self.settingsRightLaravelPlaceholder)
-
-    ################------------------------####################
-    #######****Выбор корневой директории шаблонов****###########
-    ################------------------------####################
-    def clickBtnLaravelRoot(self):
-        dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
-        self.laravelRootDir.setText(dirName)
-
-    ################------------------------####################
-    #######***Выбор корневой директории переводов****###########
-    ################------------------------####################
-    def clickBtnLaravelRootLang(self):
-        dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
-        self.laravelRootDirLang.setText(dirName)
 
     ################------------------------####################
     #############****Обновление настроек****####################
@@ -250,7 +223,19 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             self.initVocabulary()
             Vocabulary.initTableHeader(self.tableHeaderLayout)
 
+    ################------------------------####################
+    #######****Выбор корневой директории шаблонов****###########
+    ################------------------------####################
+    def clickBtnLaravelRoot(self):
+        dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
+        self.laravelRootDir.setText(dirName)
 
+    ################------------------------####################
+    #######***Выбор корневой директории переводов****###########
+    ################------------------------####################
+    def clickBtnLaravelRootLang(self):
+        dirName = QtWidgets.QFileDialog.getExistingDirectory(self, 'Выберите директорию', '/home')
+        self.laravelRootDirLang.setText(dirName)
 
 
 
@@ -392,7 +377,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
                     dialogData[name] = value
         # В случае пустоты хотя бы в одном из полей информируем пользователя
         if (emptyInputError):
-            self.showMessage('Ошибка!', 'Не заполнены все поля', 'warning')
+            GUI.showMessage('Ошибка!', 'Не заполнены все поля', 'warning')
         else:
             newItem = {}
             langValueItem = {}
@@ -405,7 +390,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             # self.writeJson(self.vocabularyFileName, self.initDataVocabulary)
             Vocabulary.writeJson(self.vocabularyFileName, self.initDataVocabulary)
 
-            self.showMessage('Обновлено', 'Перевод успешно обновлен!', 'info')
+            GUI.showMessage('Обновлено', 'Перевод успешно обновлен!', 'info')
             # Очищаем поля ввода в диалоговом окне
             for dialogInput in range(self.dialog.layout().count()):
                 if (self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout'):
@@ -435,7 +420,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
                     dialogData[name] = value
         # В случае пустоты хотя бы в одном из полей информируем пользователя
         if(emptyInputError) :
-            self.showMessage('Ошибка!', 'Не заполнены все поля', 'warning')
+            GUI.showMessage('Ошибка!', 'Не заполнены все поля', 'warning')
         else :
             newItem = {}
             langValueItem = {}
@@ -454,7 +439,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
             # self.writeJson(self.vocabularyFileName, self.initDataVocabulary)
             Vocabulary.writeJson(self.vocabularyFileName, self.initDataVocabulary)
 
-            self.showMessage('Сохранено', 'Перевод успешно добавлен!', 'info')
+            GUI.showMessage('Сохранено', 'Перевод успешно добавлен!', 'info')
             # Очищаем поля ввода в диалоговом окне
             for dialogInput in range(self.dialog.layout().count()):
                 if(self.dialog.layout().itemAt(dialogInput).__class__.__name__ == 'QHBoxLayout') :
@@ -477,7 +462,7 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
         return json_object
 
     def thread_complete(self):
-        self.showMessage('Поздравляем!', 'Процесс перевода успешно завершен', 'info')
+        GUI.showMessage('Поздравляем!', 'Процесс перевода успешно завершен', 'info')
 
     
 
@@ -502,29 +487,11 @@ class HtmlTranslator(QtWidgets.QMainWindow, laravel.Ui_MainWindow):
 
             # Execute
             self.threadpool.start(worker)
-            # Laravel.run(self.settingsLaravelRootDir, self.setting_main_lang)
-        # except FileNotFoundError as f:
-        #     self.showMessage('Ошибка!', 'Не верно указан путь к файлу!', 'critical')
-
 
     def filter_values(self, x):
         if (re.findall(r'^{{.+}}$|^{!!.+!!}$|^@|^{{\s.+}}|^:{{.+}}$|^\+{{.+}}$', x)):
             return 0
         return 1
-
-    #########****************************************###########
-    #########****Показать сообщение пользователю*****###########
-    #########****************************************###########
-    def showMessage (self, title, message, icon) :
-        icons = {
-            'info': QtWidgets.QMessageBox.Information,
-            'warning': QtWidgets.QMessageBox.Warning,
-            'critical': QtWidgets.QMessageBox.Critical,
-        }
-        self.msg.setIcon(icons[icon])
-        self.msg.setWindowTitle(title)
-        self.msg.setText(message)
-        self.msg.exec_()
 
 #Основная функция приложения
 def main():

@@ -116,3 +116,20 @@ class GUI (QtWidgets.QMainWindow, laravel.Ui_MainWindow) :
             gui['progress_bar_item'].setMaximum(progressData['current_file_total_item'])
         gui['current_file_current_item'].setText(current_file_current_item_str)
         gui['progress_bar_item'].setValue(progressData['current_file_current_item'])
+
+    #########****************************************###########
+    #########****Показать сообщение пользователю*****###########
+    #########****************************************###########
+    def showMessage(title, message, icon):
+        icons = {
+            'info': QtWidgets.QMessageBox.Information,
+            'warning': QtWidgets.QMessageBox.Warning,
+            'critical': QtWidgets.QMessageBox.Critical,
+        }
+
+        msg = QtWidgets.QMessageBox()
+
+        msg.setIcon(icons[icon])
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.exec_()

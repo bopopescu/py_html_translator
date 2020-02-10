@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import re
+from os.path import isfile
+import sys
 
 def getFromHtml(input):
     soup = BeautifulSoup(input, 'html.parser')
@@ -23,3 +25,31 @@ def filterValuesLaravel(x):
     if len(x) < 2:
         return 0
     return 1
+
+################------------------------####################
+###*****Парсинг файла переводов Laravel (PHP массив)****####
+################------------------------####################
+def parseLaravelLangFile(filePath):
+    if isfile(filePath):
+        # Получаем содержимое файла
+        fContent = getFileContent(filePath)
+        # Разбираем его на строки
+        regExpInputs = re.findall(r'\'.+,|\".+,', fContent)
+        # Парсим непосредственно сами переводы и помещаем в словарь (key : value)
+        fContentDict = prepareLaravelLangFileData(regExpInputs)
+        print(fContentDict)
+        sys.exit(0)
+
+################------------------------####################
+#**Формирование словаря (python) из файла переводов (PHP)**#
+################------------------------####################
+def prepareLaravelLangFileData(regExpInputs):
+    data = {}
+    if (len(regExpInputs) > 0):
+        for reItem in regExpInputs:
+            reItemSplit = reItem.split('=>')
+            key = re.search(r'\'.+\'|\".+\"', reItemSplit[0]).group(0).replace("'", '').replace('"', '')
+            value = re.search(r'\'.+\'|\".+\"', reItemSplit[1]).group(0).replace("'", '').replace('"', '')
+            data.update({key: value})
+        return data
+    return None

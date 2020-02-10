@@ -28,6 +28,8 @@ if os.path.exists(settings_path):
     langs = settings.get('GENERAL', 'LANGS').split('|')
     langs.insert(0, main_lang)
 
+
+# Директории, в которых будет произведен поиск по шаблонам (следовавтельно это же является файлами локализаций)
 _ALLOWED_DIRS = {'backend', 'frontend', 'mails'}
 
 
@@ -125,9 +127,6 @@ def indexLaraTranslate() :
                 if (len(allInputs) > 0) :
                     for reItem in allInputs :
                         reItemSplit = reItem.split('=>')
-
-                        print(file)
-
                         key     = re.search(r'\'.+\'', reItemSplit[0]).group(0).replace("'", '')
                         value   = re.search(r'\'.+\'', reItemSplit[1]).group(0).replace("'", '')
                         data[lang][allowFile].update({value: key})
