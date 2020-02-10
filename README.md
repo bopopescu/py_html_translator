@@ -11,4 +11,4 @@
   2. Поиск перевода в локальном хранилище - словаре приложения
   3. Перевод слова или предложения через АПИ google translate
   
-  ![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+  ![alt text](https://i.imgur.com/8lqDlns.png)
