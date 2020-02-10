@@ -11,4 +11,14 @@
   2. Поиск перевода в локальном хранилище - словаре приложения
   3. Перевод слова или предложения через АПИ google translate
   
-  ![alt text](https://i.imgur.com/8lqDlns.png)
+  `Локальный словарь приложения`
+  ![alt text](https://i.imgur.com/viqr6lc.png)
+
+  `Добавление перевода`
+  ![alt text](https://i.imgur.com/AQYZFpi.png)
+  
+  `Настройки приложения`
+  ![alt text](https://i.imgur.com/ZmZctpF.png)
+  
+  `Основное окно запуска приложения`
+  ![alt text](https://i.imgur.com/aTtmqXg.png)
